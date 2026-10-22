@@ -1,0 +1,31 @@
+openapi: 3.0.3
+info:
+  title: Pagos Producer API
+  version: 1.0.0
+  description: API para encolar pagos.
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/v1/pagos:
+    post:
+      operationId: crearPago
+      summary: Registra un pago para enviarlo al banco
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PagoInput'
+      responses:
+        '202':
+          description: Pago aceptado y en cola
+components:
+  schemas:
+    PagoInput:
+      type: object
+      required:
+        - reciboId
+      properties:
+        reciboId:
+          type: string
+          example: "REC-001"
